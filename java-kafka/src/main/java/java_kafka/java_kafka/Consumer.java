@@ -12,7 +12,7 @@ public class Consumer {
 
         var consumer = new KafkaConsumer<String, String>(properties());
 
-        consumer.subscribe(Collections.singletonList("consumo-cliente"));
+        consumer.subscribe(Collections.singletonList("ecommerce.compras"));
 
         while (true) {
             var records = consumer.poll(java.time.Duration.ofMillis(100));
@@ -32,7 +32,7 @@ public class Consumer {
         properties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
         properties.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer");
         properties.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer");
-        properties.setProperty(ConsumerConfig.GROUP_ID_CONFIG, "consumo-cliente");
+        properties.setProperty(ConsumerConfig.GROUP_ID_CONFIG, "ecommerce-group");
         return properties;
     }
 }

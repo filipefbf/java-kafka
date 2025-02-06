@@ -14,7 +14,7 @@ public class Producer {
 
         var producer = new KafkaProducer<String, String>(properties());
 
-        var record = new ProducerRecord<String, String>("consumo-cliente", "cliente-1", "compras:50reais");
+        var record = new ProducerRecord<String, String>("ecommerce.compras", "cliente-1", "compras:50reais");
 
         Callback callback = (data, error) -> {
             if (error != null) {
@@ -28,7 +28,12 @@ public class Producer {
             System.out.println("Timestamp: " + data.timestamp());
         };
 
-        producer.send(record, callback).get();
+        for (int i = 0; i < 10; i++) {
+            var record2 = new ProducerRecord<String, String>("ecommerce.compras",
+                    "cliente-" + "compras" + i, "reais");
+            producer.send(record2, callback).get();
+        }
+
     }
 
     private static Properties properties() {
